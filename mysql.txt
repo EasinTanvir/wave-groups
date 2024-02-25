@@ -1,0 +1,37 @@
+## CREATE A DATABASE CALL WAVE
+
+CREATE DATABASE WAVE
+USE WAVE
+
+## CREATE A TABLE CALL USERS IN THE WAVE DATABASE
+
+CREATE TABLE USERS (
+ID INT PRIMARY KEY AUTO_INCREMENT,
+email VARCHAR(255) NOT NULL,
+password VARCHAR(255) NOT NULL,
+type VARCHAR(255) NOT NULL,
+active TINYINT DEFAULT 0
+);
+
+## CREATE A PROCEDURE CALL addUser
+
+
+DELIMITER //
+CREATE PROCEDURE addUser(email VARCHAR(255), password VARCHAR(255),type VARCHAR(255),active TINYINT)
+BEGIN
+IF active IS NULL THEN
+SET active =0;
+END IF;
+INSERT INTO USERS(email,password,type,active) VALUES(email,password,type,active);
+END//
+DELIMITER ;
+
+## CALL THE PROCEDURE TO INSERT NEW RECORD
+
+##AT FIRST WE USE NULL FOR active so it will take the default value which has set on the procedure
+CALL addUser("test@gmail.com","test","user",null);
+
+##Then WE USE 1 FOR active so it will take the given value 
+CALL addUser("demo@gmail.com","demo","admin",1);
+
+
